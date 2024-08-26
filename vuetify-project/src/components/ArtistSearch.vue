@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Search Artists</h1>
-    <input v-model="query" @keyup.enter="searchArtists" placeholder="Search for artists..." />
+    <input v-model="query" @keyup.enter="searchArtists" placeholder="Ricerca artista." />
     <ul>
       <li v-for="artist in artists" :key="artist.id" @click="selectArtist(artist.id)">
         {{ artist.name }}
