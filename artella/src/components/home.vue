@@ -12,7 +12,7 @@
     <v-sheet class="mx-auto">
       <v-slide-group v-model="model" class="pa-4" selected-class="bg-success" show-arrows>
         <v-slide-group-item v-for="artwork in this.arrayGeneRes[index]" :key="artwork.link" v-slot="{ isSelected, toggle, selectedClass }">
-          <div class="ods__card ods__card__little" @click="$router.push({ path: '/opera:' + artwork.id })"
+          <div class="ods__card ods__card__little" @click="$router.push({ path: '/opera:' + artwork.title__intero})"
             :style="{ backgroundImage: 'linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(201, 201, 201, 0.73)), url(' + artwork.image + ')' }">
             <div class="ods__card__inside">
               <div class="ods__card__inside__uno">
@@ -57,10 +57,11 @@ export default {
           console.log(response.data)
           this.arrayGeneRes[i] = response.data._embedded.results.map((result) => (
           {
-            id: result._links.self.href.replace("https://api.artsy.net/api/artworks/", ""),
+            id: result._links.self.href.replace("https://www.artsy.net/artwork/", ""),
             title: result.title,
             image: result._links.thumbnail.href,
-            style: this.ArrayGenes[i]
+            style: this.ArrayGenes[i],
+            title__intero: result._links.permalink.href,
           })
         );
         } catch (error) {
