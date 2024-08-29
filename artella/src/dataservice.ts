@@ -73,7 +73,7 @@ export default {
 
   geArtObj(id: string) {
     console.log(id)
-    return artsyApi.get(`${id}`);
+    return artsyApi.get(`/artworks/${id}`);
   },
 
   dbEx: function(){
