@@ -54,22 +54,39 @@ export default {
       for (let i = 0; i < this.ArrayGenes.length; i++) {
         try {
           const response = await DataService.getGene(this.ArrayGenes[i]);
-          console.log(response.data)
+          
           this.arrayGeneRes[i] = response.data._embedded.results.map((result) => (
           {
             id: result._links.self.href.replace("https://www.artsy.net/artwork/", ""),
             title: result.title,
+            desc: result.description,
+            type: result.type,
             image: result._links.thumbnail.href,
             style: this.ArrayGenes[i],
             title__intero: result._links.permalink.href.replace("https://www.artsy.net/artwork/", ""),
           })
         );
+
         } catch (error) {
           console.error(error);
         }
 
       }
     },
+    async checkArt(art){
+      await console.log((await DataService.getGene(art)).data.total_count)
+/*           if(DataService.getGene(art.title__intero).total_count >0){
+            this.arrayGeneRes[i].push({
+              id: element._links.self.href.replace("https://www.artsy.net/artwork/", ""),
+              title: element.title,
+              desc: element.description,
+              type: element.type,
+              image: element._links.thumbnail.href,
+              style: this.ArrayGenes[i],
+              title__intero: element._links.permalink.href.replace("https://www.artsy.net/artwork/", ""),
+            })
+          } */
+    }
   },
 
   mounted() {

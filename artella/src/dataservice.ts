@@ -59,8 +59,8 @@ const artsyApi = axios.create({
 
 export default {
   
-  searchArtists(query: string) {
-    return artsyApi.get(`/search?q=${query}`);
+  searchArtists(id: string) {
+    return artsyApi.get(`/search?q=${id}&type=artist`);
   },
 
   getGene(id: string) {

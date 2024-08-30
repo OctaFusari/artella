@@ -36,14 +36,18 @@
           <input type="text" v-model="query" @keyup.enter="searchArtists()" @input="searchArtists()"
             placeholder="Cerca destinazione" />
           <div class="ods__mini__card" v-if="artists.length > 0"
-            style="position: fixed; z-index: 99; background-color: white;">
+            style="position: fixed;max-height: 8cm;overflow-y: scroll; z-index: 99; background-color: white;">
             <div style="margin: 3vh 0 3vh 0;">
               <h4 @click="artists = []" style="cursor: pointer;">Chiudi</h4>
             </div>
             <ul style="list-style: none;">
               <li style="padding: 1vh 0 1vh 0; cursor: pointer;" v-for="artist in artists" :key="artist.id"
-                @click="$router.push({ path: '/post:' + artist.id })">
+                @click="$router.push({ path: '/artista:' + artist.id })">
                 {{ artist.name }}
+              </li>
+              <li style="padding: 1vh 0 1vh 0; cursor: pointer;" v-for="artwork in artworks" :key="artwork.id"
+                @click="$router.push({ path: '/opera:' + artwork.id })">
+                {{ artwork.name }}
               </li>
             </ul>
           </div>
@@ -87,7 +91,8 @@ export default {
       section__app: 0,
       user: localStorage.getItem("login"),
       query: '',
-      artists: []
+      artists: [],
+      artworks: []
     }
   },
   watch: {
@@ -103,12 +108,19 @@ export default {
     },
     searchArtists: async function () {
       try {
-        const response = await DataService.searchArtists(this.query);
-        this.artists = response.data._embedded.results.map((result: any) => ({
-          id: response.data._embedded.results[0]._links.self.href,
+        const response = await DataService.getGene(this.query);
+        this.artworks = response.data._embedded.results.map((result: any) => ({
+          id: response.data._embedded.results[0]._links.permalink.href.replace("https://www.artsy.net/artwork/", ""),
           name: result.title,
         }));
-        console.log(this.artists)
+
+        console.log(response.data._embedded.results)
+        
+        const response2 = await DataService.searchArtists(this.query);
+        this.artists = response2.data._embedded.results.map((result: any) => ({
+          id: response2.data._embedded.results[0]._links.self.href.replace("https://api.artsy.net/api/artists/", ""),
+          name: result.title,
+        }));
       } catch (error) {
         console.error(error);
       }
