@@ -71,8 +71,8 @@ export default {
     return artsyApi.get(`${id}`); 
   },
 
-  geArtObj(id: string) {
-    return artsyApi.get(`/artwork/${id}`)
+  geArtObj(artista: string) {
+    return artsyApi.get(`${artista.substring(1)}`)
   },
 
   dbEx: function(){

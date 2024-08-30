@@ -23,16 +23,14 @@ export default {
   },
   methods: {
     async geneSearch() {
-      console.log("response")
-        let route__dot = this.$route.params.opId
-        let route__nodot = route__dot.replace("opera:", "")
         try {
-          const response = await DataService.geArtObj(route__dot.replace("opera:", ""));
+          const response = await DataService.getGene(this.$route.params.opId.substring(1));
           this.ArtObj = response.data
+          console.log(response.data)
         } catch (error) {
             console.error(error);
         }
-    },
+    },  
   },
 
   mounted() {

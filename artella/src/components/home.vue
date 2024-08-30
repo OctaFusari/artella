@@ -61,7 +61,7 @@ export default {
             title: result.title,
             image: result._links.thumbnail.href,
             style: this.ArrayGenes[i],
-            title__intero: result._links.permalink.href,
+            title__intero: result._links.permalink.href.replace("https://www.artsy.net/artwork/", ""),
           })
         );
         } catch (error) {
