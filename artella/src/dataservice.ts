@@ -67,8 +67,12 @@ export default {
     return artsyApi.get(`/search?q=${id}&type=artwork`)
   },
 
+  getArtbyArtist(id: string) {
+    return artsyApi.get(`artworks?artist_id=${id}`)
+  },
+
   getArtist(id: string) {
-    return artsyApi.get(`${id}`); 
+    return artsyApi.get(`/artists/${id}`); 
   },
 
   geArtObj(artista: string) {
