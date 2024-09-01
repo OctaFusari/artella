@@ -63,13 +63,12 @@ export default {
 
   },
   methods: {
-    async geneSearch() {
-      console.log(this.$route.params.opId.substring(1))
+    async artworkData() {
         try {
           const response = await DataService.getGene(this.$route.params.opId.substring(1));
           this.ArtObj = response.data._embedded.results[0]
           this.imgSet = response.data._embedded.results[0]._links.thumbnail.href
-          console.log(response)
+          
         } catch (error) {
             
         }
@@ -111,7 +110,7 @@ export default {
   },
 
   mounted() {
-    this.geneSearch()
+    this.artworkData()
   },
 }
 </script>
@@ -139,10 +138,10 @@ export default {
   @media only screen and (max-width: 800px) {
     .container__interno {
     margin: 4vh;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 2fr 1fr;
-    grid-template-areas: "." ".";
+    display: block
+  }
+  .container__interno section:first-of-type{
+    height: 50vh;
   }
   }
 

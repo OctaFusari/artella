@@ -23,7 +23,7 @@
                     <v-form @submit.prevent="updateUtente" v-model="valid">
                         <v-text-field v-model="this.arrayUtenti.username" :rules="rules"
                             label="username"></v-text-field>
-                        <v-text-field v-model="this.arrayUtenti.bio" label="bio"></v-text-field>
+                        <!-- <v-text-field v-model="this.arrayUtenti.bio" label="bio"></v-text-field> -->
 
                         <button class="buttonheavy" type="submit" block>Salva modifiche</button>
                     </v-form>
@@ -91,7 +91,7 @@ export default {
         },
 
         logOut: function () {
-            dataservice.logout()
+            DataService.logout()
             window.location.reload();
         },
 
