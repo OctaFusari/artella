@@ -134,6 +134,7 @@ export default {
   methods: {
 
     takeUsers: async function () {
+      console.log("prova")
       const querySnapshot = await getDocs(collection(DataService.dbEx(), "utenti"));
       querySnapshot.forEach((doc) => {
         var route__dot = this.$route.params.userId;
@@ -142,6 +143,8 @@ export default {
           this.arrayUtenti = { id: doc.id, ...doc.data() }
         }
       });
+
+      console.log(this.arrayUtenti)
     },
 
     takeUserPost: async function () {
